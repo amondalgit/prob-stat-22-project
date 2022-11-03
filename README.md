@@ -2,14 +2,18 @@
 
 This is a Collaboratory hands on project on the consolidated learning in the 'Probability and Statistics with R' coursework.
 
-[Main repo](gh repo clone amondalgit/prob-stat-22-project)
+[Main Repository](https://github.com/amondalgit/prob-stat-22-project.git) 
 
-#### Collaborators
+#### Collaborators 🤝
 
-[amondalgit](https://github.com/amondalgit)
+> [amondalgit](https://github.com/amondalgit)
+>
+> [RohanKarthikeyan](https://github.com/RohanKarthikeyan)
+>
+> [sbarat321](https://github.com/sbarat321)
 
-#### Issues
+#### Issues ❗❗
 
-##### Problem-1
+
 
 Happy Learning !!
