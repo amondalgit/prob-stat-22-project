@@ -4,7 +4,7 @@ This is a Collaboratory hands on project on the consolidated learning in the 'Pr
 
 [Main Repository](https://github.com/amondalgit/prob-stat-22-project.git) 
 
-#### Collaborators 🤝
+## Collaborators 🤝
 
 > [amondalgit](https://github.com/amondalgit)
 >
@@ -12,18 +12,18 @@ This is a Collaboratory hands on project on the consolidated learning in the 'Pr
 >
 > [sbarat321](https://github.com/sbarat321)
 
-#### Description about the problems
-##### * Problem 1
+## Description about the problems
+- ### Problem 1
 
-##### * Problem 2
+- ### Problem 2
 
-##### * Problem 3
+- ### Problem 3
 
-##### * Problem 4
+- ### Problem 4
 
-##### * Problem 5
+- ### Problem 5
 
-#### Issues ❗❗
+## Issues ❗❗
 
 
 
