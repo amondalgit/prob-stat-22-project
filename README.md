@@ -15,16 +15,15 @@ This is a Collaboratory hands on project on the consolidated learning in the 'Pr
 ## Description about the problems 📃
 - ### Problem 1
 > 
+
 - ### Problem 2
 >
+
 - ### Problem 3
-> 
+> We fit mixture models to the `waiting` variable in the [`faithful` dataset](https://search.r-project.org/CRAN/refmans/mixComp/html/faithful.html).
+
 - ### Problem 4
 > 
+
 - ### Problem 5
 > 
-## Issues ❗❗
-
-
-
-Happy Learning !!
