@@ -2,6 +2,7 @@
 title: "Computational Finance - Modelling Stock prices"
 subtitle: Problem 5
 output:
+  pdf_document: default
   html_document:
     df_print: paged
 editor_options:
@@ -73,11 +74,10 @@ grid(col='grey',lty=1)
 -   Consider the following model:
 
 $$
-r_{t}^{TCS}=\alpha + \beta r_{t}^{Nifty} + \varepsilon,
-$$ where $\mathbb{E}(\varepsilon)=0$ and
-$\mathbb{V}ar(\varepsilon)=\sigma^2$.
+r_{t}^{TCS}=\alpha + \beta r_{t}^{Nifty} + \varepsilon
+$$ where $\mathbb{E}(\varepsilon)=0$ and $\mathbb{V}ar(\varepsilon)=\sigma^2$.
 
-### Problem 1
+### Sub-problem 1
 
 > Estimate the parameters of the models $\theta=(\alpha,\beta,\sigma)$
 > using the method of moments type plug-in estimator discussed in the
@@ -85,60 +85,68 @@ $\mathbb{V}ar(\varepsilon)=\sigma^2$.
 
 ### Solution:
 
-- #### Brief Introduction on Method of Moments
+
+#### Brief Introduction on Method of Moments
+
 
 Method of Moments is a method of finding point estimators by equating
 sample moments with the corresponding population moments.
 
 We know, $j^{th}$ Moment of variable $X$,
-$$M_{j}=\frac{1}{n}\sum_{i=1}^{n}X_{i}^{j}$$
 
-- ##### Calculating Expectation by Method of Moments:
-
-$$
 \begin{align}
-&\mathbb{E}(X)=M_{1}=m_{1}=\frac{1}{n}\sum_{i=1}^{n}X_{i}  \\
+M_{j}=\frac{1}{n}\sum_{i=1}^{n}X_{i}^{j}
 \end{align}
-$$
+
+##### Calculating Expectation by Method of Moments:
+
+
+\begin{align}
+&\mathbb{E}(X)=M_{1}=m_{1}=\frac{1}{n}\sum_{i=1}^{n}X_{i}
+\end{align}
+
 
 After simplifying, we get `equation (1)` 
-$$
+
 \begin{align}
 &\mathbb{E}(X)=M_{1}=\overline{X}
 \end{align}
-$$
 
-- ##### Calculating Variance by Method of Moments:
 
-$$
+##### Calculating Variance by Method of Moments:
+
+
 \begin{align}
 &\mathbb{E}(X^{2})=M_{2}=m_{2}=\frac{1}{n}\sum_{i=1}^{n}X_{i}^{2} \\
 or, &\mathbb{V}ar(X)+(\mathbb{E}(X))^{2}=M_{2}=\overline{X^{2}} \\
 or, &\mathbb{V}ar(X)=M_{2}+(\mathbb{E}(X))^{2}=\overline{X^{2}}+(\mathbb{E}(X))^{2}
 \end{align}
-$$
+
 
 After replacing from `equation (1)`, we get `equation (2)`,
-$$\mathbb{V}ar(X)=M_{2}+M_{1}^{2}=\overline{X^{2}}+\overline{X}^{2}$$
+
+\begin{align}
+\mathbb{V}ar(X)=M_{2}+M_{1}^{2}=\overline{X^{2}}+\overline{X}^{2}
+\end{align}
 
 
 #### Solving Approach
 
-- ##### First Moments:
+
+##### First Moments:
 
 We have already seen (`equation (1)`) that the Expectation and First moment of a random variable is same.
 
-```{r echo = FALSE}
+```{r}
 r_nif_mean = mean(retrn$NSEI.Adjusted)
 r_tcs_mean = mean(retrn$TCS.NS.Adjusted)
 ```
 
-So, $\mathbb{E}(r^{Nifty})=$ `r r_nif_mean` and $\mathbb{E}(r^{TCS})=$
-`r r_tcs_mean`
+So, $\mathbb{E}(r^{Nifty})=$ `r r_nif_mean` and $\mathbb{E}(r^{TCS})=$ `r r_tcs_mean`
 
-- ##### Second Moments:
+##### Second Moments:
 
-```{r echo = FALSE}
+```{r}
 r_nif_second_mom = mean(retrn$NSEI.Adjusted ** 2)
 r_tcs_second_mom = mean(retrn$TCS.NS.Adjusted ** 2)
 ```
@@ -146,91 +154,90 @@ r_tcs_second_mom = mean(retrn$TCS.NS.Adjusted ** 2)
 $\mathbb{E}(({r^{Nifty}})^2)=$ `r r_nif_second_mom` and
 $\mathbb{E}(({r^{TCS}})^2)=$ `r r_tcs_second_mom`
 
-- ##### Variance calculation:
 
-```{r echo=FALSE}
+##### Variance calculation:
+
+
+```{r}
 r_nif_var = r_nif_second_mom + r_nif_mean ** 2
 r_tcs_var = r_tcs_second_mom + r_tcs_mean ** 2
 ```
 
-As we already have calculated First and Second moment for both the
-variable, now Variance can be calculated using `equation (2)`.
+As we already have calculated First and Second moment for both the variable, now Variance can be calculated using `equation (2)`.
 
-$\mathbb{V}ar(r^{TCS}) = \mathbb{E}{(({r^{TCS}})^2)} + (\mathbb{E}(r^{TCS}))^{2}=$
-`r r_tcs_var`
+$\mathbb{V}ar(r^{TCS}) = \mathbb{E}{(({r^{TCS}})^2)} + (\mathbb{E}(r^{TCS}))^{2}=$ `r r_tcs_var`
 
 and
 
-$\mathbb{V}ar(r^{Nifty}) = \mathbb{E}{(({r^{Nifty}})^2)} + (\mathbb{E}(r^{Nifty}))^{2}=$
-`r r_nif_var`
+$\mathbb{V}ar(r^{Nifty}) = \mathbb{E}{(({r^{Nifty}})^2)} + (\mathbb{E}(r^{Nifty}))^{2}=$ `r r_nif_var`
 
-- ##### Forming equations between parameters:
 
-Applying property of Expectation on the given model, we get
-    `equation (3)`
+##### Forming equations between parameters:
 
-$$
+
+**Applying property of Expectation on the given model, we get `equation (3)`**
+    
+
 \begin{align}
 &\mathbb{E}(r^{TCS}) = \mathbb{E}(\alpha + \beta r^{Nifty} + \varepsilon) \\
 \Rightarrow &\mathbb{E}(r^{TCS}) = \alpha + \beta*\mathbb{E}(r^{Nifty}) + \mathbb{E}(\varepsilon) \\
-\Rightarrow &\mathbb{E}(r^{TCS}) = \alpha + \beta*\mathbb{E}(r^{Nifty})
+\Rightarrow &\mathbb{E}(r^{TCS}) = \alpha + \beta*\mathbb{E}(r^{Nifty}) &[as, \mathbb{E}(\varepsilon) = 0]
 \end{align}
-$$
 
-as, given $\mathbb{E}(\varepsilon) = 0$
 
 Therefore putting values of $\mathbb{E}(r^{TCS})$ and
 $\mathbb{E}(r^{Nifty})$ in `equation (3)` we get `equation (4)`
 
-$\alpha +$ `r r_nif_mean` $\beta=$ `r r_tcs_mean`
 
-Multiplying explanatory variable $r^{Nifty}$ on both sides of the
-    model, we get,
+> $\alpha +$ `r r_nif_mean` $\beta=$ `r r_tcs_mean`
 
-$$
+
+**Multiplying explanatory variable $r^{Nifty}$ on both sides of the model, we get,**
+  
+
 \begin{align}
-r^{TCS} r^{Nifty} = \alpha r^{Nifty} + \beta (r^{Nifty})^{2} + \varepsilon r^{Nifty} \\
+r^{TCS} r^{Nifty} = \alpha r^{Nifty} + \beta (r^{Nifty})^{2} + \varepsilon r^{Nifty}
 \end{align}
-$$
 
-Now, applying property of Expectation on the above equation
-`equation (5)` is formed
 
-$$
+Now, applying property of Expectation on the above equation `equation (5)` is formed,
+
+
 \begin{align}
 &\mathbb{E}(r^{TCS} r^{Nifty}) = \mathbb{E}(\alpha r^{Nifty} + \beta (r^{Nifty})^{2} + \varepsilon r^{Nifty}) \\
 \Rightarrow&\mathbb{E}(\alpha r^{Nifty}) + \mathbb{E}(\beta (r^{Nifty})^{2}) = \mathbb{E}(r^{TCS} r^{Nifty}) - \mathbb{E}(\varepsilon r^{Nifty}) \\
 \Rightarrow &\alpha\mathbb{E}(r^{Nifty}) + \beta\mathbb{E}((r^{Nifty})^{2}) - \mathbb{E}(r^{TCS} r^{Nifty}) = \mathbb{E}(r^{TCS} r^{Nifty})
 \end{align}
-$$
 
-```{r echo = FALSE}
+
+```{r}
 tcs_nif_prod_mean = mean(retrn$TCS.NS.Adjusted * retrn$NSEI.Adjusted)
 ```
 
 Replacing, expected values in the above equation we get, `equation (6)`
 
-`r r_nif_mean` $\alpha+$ `r r_nif_second_mom` $\beta=$ `r tcs_nif_prod_mean`
 
-Applying property of Variance on the given model, we get `equation (7)`
+> `r r_nif_mean` $\alpha+$ `r r_nif_second_mom` $\beta=$ `r tcs_nif_prod_mean`
 
-$$
+
+**Applying property of Variance on the given model, we get `equation (7)`**
+
+
 \begin{align}
 \mathbb{V}ar(r^{TCS}) &= \mathbb{V}ar(\alpha + \beta r^{Nifty} + \varepsilon) \\
 \Rightarrow \mathbb{V}ar(r^{TCS})&=\mathbb{V}ar(\beta * r^{Nifty}) + \mathbb{V}ar(\varepsilon) \\
-\Rightarrow \mathbb{V}ar(r^{TCS})&=\beta^{2} * \mathbb{V}ar(r^{Nifty}) + \sigma^{2} \\
+\Rightarrow \mathbb{V}ar(r^{TCS})&=\beta^{2} * \mathbb{V}ar(r^{Nifty}) + \sigma^{2} &[as, \mathbb{V}ar(\varepsilon) = \sigma^{2}]
 \end{align}
-$$
 
-as, given $\mathbb{V}ar(\varepsilon) = \sigma^{2}$
 
-Therefore putting values of $\mathbb{V}ar(r^{TCS})$ and
-$\mathbb{V}ar(r^{Nifty})$ in `equation (7)`, we get `equation (8)`
+Therefore putting values of $\mathbb{V}ar(r^{TCS})$ and $\mathbb{V}ar(r^{Nifty})$ in `equation (7)`, we get `equation (8)`
 
-`r r_nif_var` $\beta^{2}+\sigma^{2}=$ `r r_tcs_var`
+
+> `r r_nif_var` $\beta^{2}+\sigma^{2}=$ `r r_tcs_var`
 
 
 #### Solving for values of the parameters
+
 
 `equation (4)`
 
@@ -244,9 +251,11 @@ $\mathbb{V}ar(r^{Nifty})$ in `equation (7)`, we get `equation (8)`
 
 > `r r_nif_var` $\beta^{2}+\sigma^{2}=$ `r r_tcs_var`
 
-- ##### Solving `equation (4)` & `(6)` we get the values of parameters $\alpha$ & $\beta$
 
-```{r echo=FALSE}
+- Solving `equation (4)` & `(6)` we get the values of parameters $\alpha$ & $\beta$
+
+
+```{r}
 A = rbind(c(1, r_nif_mean), c(r_nif_mean, r_nif_second_mom))
 B = c(r_tcs_mean, tcs_nif_prod_mean)
 values = solve(A,B)
@@ -254,30 +263,85 @@ alpha_mm = values[1]; beta_mm = values[2]
 sigma_mm = (r_tcs_var - (r_nif_var*(beta_mm**2)))**0.5
 ```
 
-- ##### Now putting the value of $\beta$ into `equation (8)` we get the value of $\sigma$
+- Now putting the solved value of $\beta$ into `equation (8)` we get the value of $\sigma$
 
 
-### Problem 2
+**Estimated values of the parameters are in the following table of Problem 3**
+
+
+### Sub-problem 2
+
 
 > Estimate the parameters using the `lm` built-in function of `R`. Note
 > that `lm` using the OLS method.
 
+
 ### Solution:
 
-### Problem 3
+
+Given Model,
+
+$$
+r_{t}^{TCS}=\alpha + \beta r_{t}^{Nifty} + \varepsilon
+$$
+
+Here, in the model $r_{t}^{TCS}$ is the target or dependent variable and $r_{t}^{Nifty}$ is the explanatory variable. Also, $\alpha$ is the co-efficient and $\beta$ is slope of the linear model.
+
+- From the **Model Coefficients** of the `model` object derived from `lm` function, we get the values of intercept($\alpha_{lm}$) and the slope($\beta_{lm}$). After that, we can predict the values of the target variable with the help of derived parameters.
+
+where, 
+
+- Predicted value of the TCS stock, $r_{pred}^{TCS}=\alpha_{lm}+\beta_{lm}*r_{actual}^{Nifty}$
+
+- Error in prediction, $\varepsilon=r_{pred}^{TCS}-r_{actual}^{TCS}$
+
+```{r}
+model = lm(TCS.NS.Adjusted ~ NSEI.Adjusted, data = retrn)
+
+alpha_ols = model$coefficients[[1]]
+beta_ols = model$coefficients[[2]]
+
+retrn$r_tcs_predicted = model$fitted.values
+retrn$error = retrn$r_tcs_predicted - retrn$TCS.NS.Adjusted
+
+sigma_ols = sd(retrn$error)
+```
+
+**Estimated values of the parameters are in the following table of Problem 3**
+
+
+### Sub-problem 3
+
 
 > Fill-up the following table
 
-| Parameters | Method of Moments | OLS |
-|------------|-------------------|-----|
-| $\alpha$   |  `r alpha_mm`     |     |
-| $\beta$    |  `r beta_mm`      |     |
-| $\sigma$   |  `r sigma_mm`     |     |
+| Parameters | Method of Moments |        OLS      |
+|------------|-------------------|-----------------|
+| $\alpha$   |  `r alpha_mm`     |  `r alpha_ols`  |
+| $\beta$    |  `r beta_mm`      |  `r beta_ols`   |
+| $\sigma$   |  `r sigma_mm`     |  `r sigma_ols`  |
 
-### Problem 4
+
+### Sub-problem 4
+
 
 > If the current value of Nifty is 18000 and it goes up to 18200. The
 > current value of TCS is Rs. 3200/-. How much you can expect TCS price
 > to go up?
 
+
 ### Solution:
+
+
+```{r echo=TRUE}
+nif_current = 18000
+nif_future = 18200
+tcs_current = 3200
+
+nif_return = log(nif_future) - log(nif_current)
+tcs_return_pred = predict(model, data.frame(NSEI.Adjusted = c(nif_return)))
+
+tcs_forecast = round(exp(tcs_return_pred) * tcs_current)
+```
+
+**After prediction by the model, we can say TCS stock price would go up to `r tcs_forecast` **
