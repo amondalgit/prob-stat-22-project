@@ -5,6 +5,7 @@ output:
   pdf_document: default
   html_document:
     df_print: paged
+
 editor_options:
   markdown:
     wrap: 72
@@ -21,9 +22,18 @@ library(formatR)
 library(quantmod)
 ```
 
+
+$\underline{\textbf{Problem assignee}} \text{: Adarsha Mondal}$
+
+$\underline{\textbf{Reviewer(s)}} \text{: Rohan Karthikeyan}$
+
+
+
+
+
 Following piece of code download the prices of TCS since 2007
 
-```{r warning=FALSE}
+```{r echo=TRUE, warning=FALSE}
 library(quantmod)
 getSymbols('TCS.NS')
 tail(TCS.NS)
@@ -39,7 +49,7 @@ plot(TCS.NS$TCS.NS.Adjusted)
 **Download the data of market index Nifty50**. The Nifty 50 index
 indicates how the over all market has done over the similar period.
 
-```{r warning=FALSE}
+```{r echo=TRUE, warning=FALSE}
 getSymbols('^NSEI')
 tail(NSEI)
 ```
