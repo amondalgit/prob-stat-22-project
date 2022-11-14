@@ -3,3 +3,5 @@ misc_files
 
 
 # files
+Assignment_2/code/.R*
+Assignment_2/code/*.html
