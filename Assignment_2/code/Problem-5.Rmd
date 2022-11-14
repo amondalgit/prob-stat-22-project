@@ -3,9 +3,9 @@ title: "Computational Finance - Modelling Stock prices"
 author: "Adarsha Mondal | MDS202205"
 subtitle: Problem 5
 output:
-  pdf_document: default
   html_document:
     df_print: paged
+  pdf_document: default
 editor_options:
   markdown:
     wrap: 72
@@ -183,8 +183,7 @@ $\mathbb{V}ar(r^{Nifty}) = \mathbb{E}{(({r^{Nifty}})^2)} + (\mathbb{E}(r^{Nifty}
 
 
 ##### Forming equations between parameters:
-
-
+<br>
 **Applying property of Expectation on the given model, we get `equation (3)`**
     
 
@@ -248,7 +247,7 @@ $~~~~~~~\bullet~$ `r r_nif_var` $\beta^{2}+\sigma^{2}=$ `r r_tcs_var` $~~~~~~~~~
 
 #### Solving for values of the parameters
 
-
+<br>
 `equation (4)`
 
 > $\alpha +$ `r r_nif_mean` $\beta=$ `r r_tcs_mean`
@@ -263,7 +262,7 @@ $~~~~~~~\bullet~$ `r r_nif_var` $\beta^{2}+\sigma^{2}=$ `r r_tcs_var` $~~~~~~~~~
 
 
 - Solving `equation (4)` & `(6)` we get the values of parameters $\alpha$ & $\beta$
-
+- Now putting the solved value of $\beta$ into `equation (8)` we get the value of $\sigma$
 
 ```{r echo=TRUE}
 A = rbind(c(1, r_nif_mean), c(r_nif_mean, r_nif_second_mom))
@@ -274,7 +273,6 @@ sigma_mm = (r_tcs_var - (r_nif_var*(beta_mm**2)))**0.5
 paste('alpha=',alpha_mm,'; beta=',beta_mm,'; sigma=',sigma_mm)
 ```
 
-- Now putting the solved value of $\beta$ into `equation (8)` we get the value of $\sigma$
 
 
 **Estimated values of the parameters are in the following table of Problem 3**
