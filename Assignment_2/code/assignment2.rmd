@@ -1,0 +1,33 @@
+
+
+Q2<-function(n,sim_size,alpha,sigma)
+{
+  LogLikeFunc=function(data,para)
+  {
+    l =sum(dgamma(data,shape = para[1],scale = para[2],log=T))
+    return(-l)
+  }
+  MyMLE=function(data){
+    initial=c(1,2)
+    fit=optim(initial,LogLikeFunc,data=data)
+    return(log(fit$par[1]))
+  }
+  v=c()
+  for(i in 1:sim_size){
+    x=rgamma(n=n,shape = alpha,scale=sigma)
+    v=append(v,MyMLE(x),after = length(v))
+  }
+  print(v)
+  hist(v,col="purple")
+  abline(v=log(1.5),col="red")
+  q=quantile(v,probs = c(2.5,97.5)/100)
+  d=q[2]-q[1]
+  print('gap between 2.5 and 97.5-percentile points')
+  d
+}
+Q2(20,1000,1.5,2.2)
+Q2(40,1000,1.5,2.2)
+Q2(100,1000,1.5,2.2)
+
+
+
