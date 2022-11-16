@@ -25,6 +25,8 @@ grid()
 
 ## Model 1: Linear regression with normally distributed errors
 
+Here, we model $$\texttt{Claims}_i=\beta_0 + \beta_1~\texttt{Holders}_i + \varepsilon_i,~~~i=1,2,\cdots,n$$ assuming $\varepsilon_i \sim \text{N}(0,\sigma^2)$.
+
 ```{r}
 NLL_Model1 <- function(theta, y, X)
 {
@@ -32,7 +34,6 @@ NLL_Model1 <- function(theta, y, X)
   beta_1 = theta[2]
   sigma = exp(theta[3])  # variance of error terms
 
-  n = length(data)
   # -ve log likelihood function of normal distribution
   l = -sum(dnorm(y, mean = beta_0 + beta_1*X,
                  sd = sigma, log=T))
@@ -61,6 +62,8 @@ paste0("Estimated sigma: ", sigma_hat)
 
 ## Model 2: Linear regression with Laplace distributed errors
 
+Here, we model $$\texttt{Claims}_i=\beta_0 + \beta_1~\texttt{Holders}_i + \varepsilon_i,~~~i=1,2,\cdots,n$$ assuming $\varepsilon_i \sim \text{Laplace}(0,\sigma^2)$.
+
 ```{r}
 NLL_Model2 <- function(theta, y, X)
 {
@@ -68,7 +71,7 @@ NLL_Model2 <- function(theta, y, X)
   beta_1 = theta[2]
   sigma = exp(theta[3])  # variance of error terms
   
-  n = length(data)
+  n = length(y)
   # Log likelihood function of Laplace distribution
   l = -(n*log(2*sigma) + 1/sigma*sum(abs(y - beta_0 - beta_1*X)))
   return(-l)
@@ -97,6 +100,8 @@ paste0("Estimated sigma: ", sigma_hat)
 
 ## Model 3: Linear regression for log-normally distributed data
 
+Here, we model $$\texttt{Claims}_i\sim \text{LogNormal}(\mu_i,\sigma^2)$$ where $\mu_i = \beta_0 + \beta_1 \log(\texttt{Holders}_i), ~~i=1, 2, \cdots, n$.
+
 ```{r}
 NLL_Model3 <- function(theta, y, X)
 {
@@ -104,7 +109,7 @@ NLL_Model3 <- function(theta, y, X)
   beta_1 = theta[2]
   sigma = exp(theta[3])  # variance of error terms
 
-  n = length(data)
+  n = length(y)
   # -ve log likelihood function of log-normal distribution
   # Mean is given in question
 
@@ -113,7 +118,7 @@ NLL_Model3 <- function(theta, y, X)
   {
     if (y[i] != 0)
     {
-      l = l + dlnorm(y[i], meanlog = beta_0 + beta_1*log(X[i]),
+      l = l + dlnorm(y[i], meanlog = exp(beta_0 + beta_1*log(X[i])),
                      sdlog = sigma, log=T)
     }
   }
@@ -142,7 +147,47 @@ paste0("Estimated sigma: ", sigma_hat)
 
 ## Model 4: Gamma regression
 
-Unattempted.
+We desire a model $$\texttt{Claims}_i\sim \text{Gamma}(\alpha_i,\sigma)$$ where $\log(\alpha_i) = \beta_0 + \beta_1 \log(\texttt{Holders}_i), ~~i=1, 2, \cdots, n$.
+
+```{r}
+NLL_Model4 <- function(theta, y, X)
+{
+  beta_0 = theta[1]
+  beta_1 = theta[2]
+  sigma = exp(theta[3])  # variance of error terms
+
+  n = length(y)
+  l = 0
+  for (i in 1:n)
+  {
+    if (y[i] != 0)
+    {
+      l = l + dgamma(y[i], shape = exp(beta_0 + beta_1*log(X[i])),
+                     scale = sigma, log = T)
+    }
+  }
+  return(-l)
+}
+```
+
+Let's fit this model to the `Insurance` dataset.
+
+```{r}
+theta_initial4 = c(1, 0.15, 0.5)
+fit_4 = optim(theta_initial4, NLL_Model4,
+              y=Insurance$Claims,
+              X=Insurance$Holders,
+              control=list(maxit=1500))
+theta_hat = fit_4$par
+
+beta0_hat = theta_hat[1]
+beta1_hat = theta_hat[2]
+sigma_hat = exp(theta_hat[3])
+
+paste0("Estimated beta0: ", beta0_hat)
+paste0("Estimated beta1: ", beta1_hat)
+paste0("Estimated sigma: ", sigma_hat)
+```
 
 ## BIC analysis
 
@@ -166,6 +211,7 @@ BIC_scores <- tibble(
   BIC_model1 = get_BIC(fit_1),
   BIC_model2 = get_BIC(fit_2),
   BIC_model3 = get_BIC(fit_3),
+  BIC_model4 = get_BIC(fit_4),
 )
 
 BIC_scores
@@ -175,9 +221,9 @@ A plot:
 ```{r}
 library(tidyr)
 library(ggplot2)
-BIC_scores = pivot_longer(BIC_scores, cols = BIC_model1:BIC_model3)
+BIC_scores = pivot_longer(BIC_scores, cols = BIC_model1:BIC_model4)
 ggplot(BIC_scores, aes(x=name, y=value, fill=name))+
   geom_bar(stat='identity')
 ```
 
-From the BIC scores, we can see that Model 3 is better than the other models.
+From the BIC scores, we can see that Model 4 is better than the other models.
