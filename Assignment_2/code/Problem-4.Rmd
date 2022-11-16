@@ -140,6 +140,10 @@ paste0("Estimated beta1: ", beta1_hat)
 paste0("Estimated sigma: ", sigma_hat)
 ```
 
+## Model 4: Gamma regression
+
+Unattempted.
+
 ## BIC analysis
 
 The Bayesian information criterion (BIC) is a criterion for model selection among a finite set of models. It is based, in part, on the likelihood function and it is closely related to the Akaike information criterion (AIC).
@@ -166,3 +170,14 @@ BIC_scores <- tibble(
 
 BIC_scores
 ```
+
+A plot:
+```{r}
+library(tidyr)
+library(ggplot2)
+BIC_scores = pivot_longer(BIC_scores, cols = BIC_model1:BIC_model3)
+ggplot(BIC_scores, aes(x=name, y=value, fill=name))+
+  geom_bar(stat='identity')
+```
+
+From the BIC scores, we can see that Model 3 is better than the other models.
