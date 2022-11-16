@@ -1,9 +1,9 @@
-
 # prob-stat-22-project 📊📈
 
 This is a Collaboratory hands on project on the consolidated learning in the 'Probability and Statistics with R' coursework.
 
 ## Collaborators 🤝
+
 > Adarsha Mondal: [Github Profile](https://github.com/amondalgit)
 >
 > Rohan Karthikeyan: [Github Profile](https://github.com/RohanKarthikeyan)
@@ -11,17 +11,24 @@ This is a Collaboratory hands on project on the consolidated learning in the 'Pr
 > Sulagna Barat: [Github Profile](https://github.com/sbarat321)
 
 ## Description of the assignment problems 📃
+
 - ### Problem 1
-> We analyze how well the geometric and the Poisson distributions fit the number of goals scored by the home team in a set of football matches.
+
+> We analyze how well the **Geometric** and the **Poisson** distributions fit the number of goals scored by the home team in a set of football matches.
 
 - ### Problem 2
+
 > We simulate random samples from the Gamma distribution and perform some analyses of its distribution.
 
 - ### Problem 3
+
 > We fit mixture models to the `waiting` variable in the [`faithful` dataset](https://search.r-project.org/CRAN/refmans/mixComp/html/faithful.html).
 
 - ### Problem 4
-> 
 
-- ### Problem 5
+> Fiiting four regression models consists of target variable with different ***pdf***s. Also, calculating the **Bayesian Information Criterion** for each model. ([Dataset](https://r-data.pmagunia.com/iframe/r-dataset-package-mass-insurance.html))
+
+
+### Problem 5
+
 > We fit linear regression models to the stock prices from the [`quantmod` package](https://www.quantmod.com/).
