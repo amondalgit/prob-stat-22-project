@@ -14,7 +14,7 @@ $\underline{\textbf{Reviewer:}} \text{ Sulagna Barat}$
 
 ## Part 1
 
-We are given a random variable $X$ with a supposed prob. distribution $\{a, ar, ar^2, ...\}$. Hence, we can write: $$\mathbb{P}(X=i) = ar^i$$
+We are given a random variable $X$ with a supposed prob. distribution $\{a, ar, ar^2, ...\}$. Hence, we can write: $$\mathbb{P}(X=i) = ar^i$$ It's worthwhile to mention that $a$ indicates the probability of scoring no goal with $r$ indicating the probability of a goal.
 
 Now, because $\sum_{i} \mathbb{P}(X=i) = 1$ for a probability distribution, we must have \begin{align*} \sum_{i} \mathbb{P}(X=i) &= 1 \\ \implies \sum_{i} ar^i &= 1 \\ \implies \frac{a}{1-r} &= 1 \\ \implies a &= 1-r \end{align*}
 
@@ -61,7 +61,7 @@ b.  $\mathbb{P}(1 \leq X < 4) = \mathbb{P}(X = 1) + \mathbb{P}(X = 2) + \mathbb{
 
 ## Part 5: What is $\lambda$?
 
-For a Poisson distribution, the mean and variance is equal to $\lambda$. Furthermore, we know that the ***maximum likelihood estimate*** for $\lambda$ is the sample mean. So, we will take $\lambda = 1.5$.
+For a Poisson distribution, the mean and variance is equal to $\lambda$. Furthermore, we know that the ***maximum likelihood estimate*** for $\lambda$ is the sample mean. Interpreting $\lambda$ to be the number of goals scored (by the home team), we will take $\lambda = 1.5$.
 
 a.  $\mathbb{P}(X \geq 1) = 1 - \mathbb{P}(X = 0) = 1 - e^{-\lambda} = 0.78$;
 b.  $\mathbb{P}(1 \leq X < 4) = \mathbb{P}(X = 1) + \mathbb{P}(X = 2) + \mathbb{P}(X = 3) = e^{-\lambda} \big[\lambda + \frac{\lambda^2}{2} + \frac{\lambda^3}{6}\big] = 0.71$
