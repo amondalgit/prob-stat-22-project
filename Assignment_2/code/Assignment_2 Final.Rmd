@@ -8,7 +8,7 @@ output:
 ---
 
 
-$\underline{\textbf{Problem assignee}} \text{: Sulagna Baratl}$
+$\underline{\textbf{Problem assignee}} \text{: Sulagna Barat}$
 
 $\underline{\textbf{Reviewer(s)}} \text{: Rohan Karthikeyan & Adarsha Mondal}$
 
